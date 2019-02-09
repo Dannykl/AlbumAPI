@@ -13,26 +13,29 @@ if(isset($_POST['email']) && isset($_POST['password']))
     $email = $_POST['email'];
     $password = $_POST['password'];
  
-    // get the user by email and password
-    $user = $db->getUserData($email, $password);
- 
-    if ($user == True) {
-        // use is found
-        $response["error"] = FALSE;
-        $response["user"]["email"] = $email;
-        echo json_encode($response);
-    } else if($user == False){
-        //password is not correct
-        $response["error"] = TRUE;
-        $response["error_msg"] = "Login credentials are wrong. Please try again!";
-        
-    }else{
+    if($db->isUserExisted($email))
+    {    // get the user by email and password
+        $user = $db->getUserData($email, $password);
+        if ($user != False) {
+            // use is found
+            $response["error"] = FALSE;
+            $response["user"]["email"] = $email;
+            echo json_encode($response);
+        } else{
+            //password is not correct
+            $response["error"] = TRUE;
+            $response["error_msg"] = "Login credentials are wrong. Please try again!";
+            echo json_encode($response);
+        }
+    }
+    else{
         // email was not found is not found with the credentials
-        $response["error"] = TRUE;
+//        $response["error"] = TRUE;
         $response["error_msg"] = "Email was not found! Try sign-up";
         echo json_encode($response);
     }
-} else {
+}
+else {
     // required post params is missing
     $response["error"] = TRUE;
     $response["error_msg"] = "Required parameters email or password is missing!";

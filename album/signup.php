@@ -37,5 +37,4 @@ if(isset($_POST['firstName'])&& isset($_POST['lastName'])&&isset($_POST['email']
     $response["error_msg"] = "All fields must be filled";
     echo json_encode($response);
 }
-
 ?>
