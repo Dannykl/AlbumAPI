@@ -28,7 +28,7 @@ if ($result->num_rows > 0)
 //        $album["artist_name"] = $row["ARTIST_NAME"];
         $album["genres_name"] = $row["GENRES_NAME"];
         $album["released_date"] = $row["ALBUM_RELEASED_DATE"];
-        $album["album_poster"] = "http://www.zema.live/tune/".$row["ALBUM_POSTER"];
+        $album["album_poster"] = "http://www.".$row["ALBUM_POSTER"];
         $album['artists'] = array();
         $album['song_details'] = array();
         
@@ -39,7 +39,7 @@ if ($result->num_rows > 0)
             $album['song_details'][] = array(
             'song_name' => $row2["SONG_NAME"],
             'song_duration'=> $row2["SONG_DURATION"],
-            'song_location' => "http://www.zema.live/tune/".$row2["SONG_LOCATION"]);
+            'song_location' => "http://www.".$row2["SONG_LOCATION"]);
 
             $sql3 = "SELECT DISTINCT ARTIST_NAME FROM ARTIST WHERE ARTIST.ID =".$row2["ARTIST_ID"];
             $result3 = $db ->getData($sql3);
